@@ -1,23 +1,24 @@
-import facedetection
+import detection
 import cv2
 import os
 
 os.environ["DISPLAY"] = ":0.0"
 
-model_path = "model/yunet_n_320_320.nb"
-picture_path = "image/sample.jpg"
-# picture_path = "image/musk.jpg"
+model_path = "/nfs/t527-npu/libawnn_t527/t527-facedetection/model/RetinaFace_mobile320-data/RetinaFace_mobile320.nb"
+# picture_path = "../image/sample.jpg"
+# picture_path = "../image/musk.jpg"
+picture_path = "/nfs/t527-npu/libawnn_t527/t527-yolo/image/car.jpg"
 output_path = ".result.jpg"
 
 
 # 检测图片
-yolo = facedetection.FACEDETECTION(model_path)
+yolo = detection.FACEDETECTION(model_path)
 print(f"model: {model_path}")
 boxes = yolo.detect(picture_path)
 print(f"boxes: {boxes.__len__()}")
 for i in boxes:
     print(
-        "{:f} ({:4d},{:4d}) ({:4d},{:4d}) {:s}".format(
+        "{:f} ({:4d},{:4d}) ({:4d},{:4d}) ".format(
             i.reliability,
             i.left_x,
             i.left_y,
